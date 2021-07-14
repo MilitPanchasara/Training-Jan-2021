@@ -1,0 +1,74 @@
+<div class="container my-4">
+    <div class="offset-3 col-6">
+        <form [formGroup]="userFormGroup">
+            <label for="">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control">
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.firstName.touched && userFormGroup.controls.firstName.errors && userFormGroup.controls.firstName.errors.required != null">{{userFormGroup.controls.firstName.errors.required.message}}<br/></small>
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.firstName.errors && userFormGroup.controls.firstName.errors.alpha != null">{{userFormGroup.controls.firstName.errors.alpha.message}}<br/></small>
+
+            <label for="">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control">
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.lastName.touched && userFormGroup.controls.lastName.errors && userFormGroup.controls.lastName.errors.required != null">Lastname is required.<br/></small>
+
+            <label for="">Password</label>
+            <input type="text" formControlName="password" class="form-control">
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.password.touched && userFormGroup.controls.password.errors && userFormGroup.controls.password.errors.required != null">Password is required.<br/></small>
+
+            <label for="">Confirm Password</label>
+            <input type="text" formControlName="cpassword" class="form-control">
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.cpassword.touched && userFormGroup.controls.cpassword.errors && userFormGroup.controls.cpassword.errors.compare != null">Password not matched.<br/></small>
+
+            <label for="">Email</label>
+            <input type="text" formControlName="email" class="form-control">
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.email.touched && userFormGroup.controls.email.errors && userFormGroup.controls.email.errors.email != null">Invalid email.<br/></small>
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.email.touched && userFormGroup.controls.email.errors && userFormGroup.controls.email.errors.async != null">{{userFormGroup.controls.email.errors.async.message}}<br/></small>
+
+            <label for="">City</label>
+            <input type="text" formControlName="city" class="form-control">
+
+            <label for="">State</label>
+            <input type="text" formControlName="state" class="form-control">
+
+            <label for="">Zip code</label>
+            <input type="text" formControlName="zip" class="form-control">
+            
+            <label for="">Max date Validation:</label>
+            <input type="text" formControlName="maxDate" class="form-control" placeholder="mm/dd/yyyy"> 
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.maxDate.dirty && userFormGroup.controls.maxDate.errors && userFormGroup.controls.maxDate.errors.maxDate != null">
+                {{userFormGroup.controls.maxDate.errors.maxDate.message}}<br/>
+            </small>
+
+            <label>Total Document Files</label>
+            <input type="file" formControlName="totalDocumentFiles" class="form-control" multiple />
+            <small class="form-text text-muted">This field allow maximum 2 files.<br/></small>
+            <small class="form-text text-muted">Uploaded File must be in the file size range.<br/></small>
+            <small class="form-text text-danger" *ngIf="userFormGroup.controls.totalDocumentFiles.errors && userFormGroup.controls.totalDocumentFiles.errors.file">
+                {{userFormGroup.controls.totalDocumentFiles.errors.file.message}}<br/>
+            </small>
+            <!-- <small class="form-text text-danger" *ngIf="userFormGroup.controls.totalDocumentFiles.errors && userFormGroup.controls.totalDocumentFiles.errors.fileSize">
+                {{userFormGroup.controls.totalDocumentFiles.errors.fileSize.message}}<br/>
+            </small> -->
+
+            <button class="btn btn-primary" (click)="addAddress()">Add Address</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">City Name</th>
+                        <th scope="col">Country Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr [formGroup]="getAddress(i)" *ngFor="let address of addresses; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td><input type="text" formControlName="city" class="form-control" />
+                        </td>
+                        <td><input type="text" formControlName="country" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button (click)="submitForm()" class="my-3 btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

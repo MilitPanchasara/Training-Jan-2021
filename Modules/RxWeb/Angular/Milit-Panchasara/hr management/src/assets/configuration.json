@@ -1,0 +1,9 @@
+{
+    "changeDetection": true,
+    "defaultTheme": "light",
+    "defaultLanguage": "English",
+    "authorization": {
+      "cacheMinutes": 30
+    },
+    "cacheKeys": {}
+  }

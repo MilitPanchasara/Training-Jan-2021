@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header">{{dashboard.total_users}}</div>
+                <div class="card-content">
+                    <p class="pt-2 pl-2 text-muted" style="padding-left: 15px;">1000</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header">{{dashboard.pending_users}}</div>
+                <div class="card-content">
+                    <p class="pt-2 pl-2 text-muted" style="padding-left: 15px;">100</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header">{{dashboard.approved_users}}</div>
+                <div class="card-content">
+                    <p class="pt-2 pl-2 text-muted" style="padding-left: 15px;">900</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of items;let i = index">
+                       <td>{{user.name}}</td>
+                       <td>{{user.email}}</td> 
+                    </tr>
+                </tbody>
+            </table>
+        {{result}}
+        {{result2}}
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-12">
+            <form [formGroup]="dynamicFormBuildConfig.formGroup">
+                <div viewMode="basic" [rxwebDynamicForm]="dynamicFormBuildConfig" [uiBindings]="uiBindings">
+                </div>      
+                <button type="submit" class="btn btn-primary my-3" (click)="submitForm()">Submit</button>
+            </form>
+            <pre>{{dynamicFormBuildConfig.formGroup.value | json}}</pre>
+        </div>
+    </div>
+    <button class="btn btn-default" *rxAuthorize="skillAdd" type="button">
+        <span class="fa fa-plus"></span> 
+    </button>
+</div>

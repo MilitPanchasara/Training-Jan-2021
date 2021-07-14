@@ -1,0 +1,6 @@
+<app-topbar *ngIf="!isHome"></app-topbar>
+<app-sidebar *ngIf="!isHome"></app-sidebar>
+
+<div class="mt-5 pt-2">
+    <router-outlet></router-outlet>
+</div>

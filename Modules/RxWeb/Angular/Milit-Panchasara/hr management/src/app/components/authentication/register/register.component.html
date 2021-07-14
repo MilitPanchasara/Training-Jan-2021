@@ -1,0 +1,143 @@
+<div class="container my-4">
+    <div class="" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{selectedLanguage}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" (click)="changeLanguage('en')">En</a></li>
+            <li><a class="dropdown-item"(click)="changeLanguage('fr')">Fr</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <form class="row g-3" [formGroup]="regFormGroup">
+      <div class="col-12">
+        <label for="inputEmail4" class="form-label">{{registerUser.name}}</label>
+        <input type="text" formControlName="name" class="form-control"> 
+              <small class="form-text text-danger" *ngIf="regFormGroup.controls.name.touched && regFormGroup.controls.name.errors && regFormGroup.controls.name.errors.required != null">{{regFormGroup.controls.name.errors.required.message}}<br/></small>
+              <small class="form-text text-danger" *ngIf="regFormGroup.controls.name.errors && regFormGroup.controls.name.errors.alpha != null">{{regFormGroup.controls.name.errors.alpha.message}}<br/></small>
+              EVALUETED TEXT: {{regFormGroup["modelInstance"]["name"]}}
+            </div>
+
+      <div class="col-12">
+        <label for="inputAddress" class="form-label">{{registerUser.email}}</label>
+              <input type="text" formControlName="email" class="form-control"> 
+              <small class="form-text text-danger" *ngIf="regFormGroup.controls.email.touched && regFormGroup.controls.email.errors && regFormGroup.controls.email.errors.required != null">{{regFormGroup.controls.email.errors.required.message}}<br/></small>
+              <small class="form-text text-danger" *ngIf="regFormGroup.controls.email.touched && regFormGroup.controls.email.errors && regFormGroup.controls.email.errors.email != null">Invalid email.<br/></small>
+      </div>
+      <div class="col-12">
+        <label for="inputAddress2" class="form-label">{{registerUser.password}}</label>
+        <input type="text" class="form-control" formControlName="password" id="inputAddress2">
+        <small class="form-text text-danger" *ngIf="regFormGroup.controls.password.touched && regFormGroup.controls.password.errors && regFormGroup.controls.password.errors.required != null">{{regFormGroup.controls.password.errors.required.message}}<br/></small>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" *ngIf="regFormGroup.value.modeType == 'View'" (click)="changeMode()">Change Mode Edit</button>
+        <button class="btn btn-primary" *ngIf="regFormGroup.value.modeType == 'Edit'" (click)="changeMode()">Change Mode View</button>
+      </div>
+      <button class="btn btn-primary" (click)="addAddress()">Add Address</button>
+      <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">City Name</th>
+                <th scope="col">Country Name</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr [formGroup]="getAddress(i)" *ngFor="let address of getAddresses(); let i = index">
+                <th scope="row">{{i + 1}}</th>
+                <td><input type="text" formControlName="city" class="form-control" />
+                </td>
+                <td><input type="text" formControlName="country" class="form-control" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="form-group">
+      <label>Amount</label>
+      <input type="text" formControlName="amount" class="form-control"  />
+		Transformed Value :   {{regFormGroup["modelInstance"]["amount"]}}
+    </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" (click)="submitForm()">{{registerUser.signup}}</button>
+      </div>
+    </form>
+  
+  </div>
+
+  <div class="container">
+    <form [formGroup]="userDetailsFormGroup" class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">FirstName</label>
+        <input type="text" formControlName="firstName" class="form-control">
+        <small class="text text-danger"
+          *ngIf="userDetailsFormGroup.controls.firstName.errors">{{userDetailsFormGroup.controls.firstName.errorMessage}}</small>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">LastName</label>
+        <input type="text" formControlName="lastName" class="form-control">
+        <small class="text text-danger"
+        *ngIf="userDetailsFormGroup.controls.lastName.errors">{{userDetailsFormGroup.controls.lastName.errorMessage}}</small>
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Email</label>
+        <input type="text" formControlName="email" class="form-control">
+        <small class="text text-danger"
+        *ngIf="userDetailsFormGroup.controls.email.errors">{{userDetailsFormGroup.controls.email.errorMessage}}</small>
+      </div>
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="isPermanentAddress">
+          <label class="form-check-label">
+            Is Permanent Address
+          </label>
+          <small class="text text-danger"
+          *ngIf="userDetailsFormGroup.controls.isPermanentAddress.errors">{{userDetailsFormGroup.controls.isPermanentAddress.errorMessage}}</small>
+        </div>
+      </div>
+      <div class="form-group" [formGroup]="userDetailsFormGroup.controls.address">
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">City Name</label>
+          <input type="text" formControlName="cityName" class="form-control" placeholder="1234 Main St">
+          <small class="text text-danger"
+          *ngIf="userDetailsFormGroup.controls.address['controls'].cityName.errors">{{userDetailsFormGroup.controls.address['controls'].cityName.errorMessage}}</small>
+        </div>
+        <div class="col-12">
+          <label for="inputAddress2" class="form-label">Area Name</label>
+          <input type="text" class="form-control" formControlName="areaName" placeholder="Apartment, studio, or floor">
+          <small class="text text-danger"
+          *ngIf="userDetailsFormGroup.controls.address['controls'].areaName.errors">{{userDetailsFormGroup.controls.address['controls'].areaName.errorMessage}}</small>
+        </div>
+      </div>
+  
+      <div class="col-12">
+        <button [disabled]="!userDetailsFormGroup.valid" type="submit" class="btn btn-primary">Sign in</button>
+      </div>
+    </form>
+  </div>
+  
+  <div *ngIf="showComponent" class="container">
+    <span style="font-size: 17px;">{{global.greetMessage}}</span>&nbsp;
+    <select (click)="changeLanguage2($event.target.value)">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+    </select>
+  <div>
+    <form  [formGroup]="userInfoFormGroup">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" formControlName="firstName" class="form-control"  />
+        {{userInfoFormGroup.controls.firstName.errorMessage}}
+       
+      </div>
+      <button [disabled]="!userInfoFormGroup.valid" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  
+  </div>
+  
+  
